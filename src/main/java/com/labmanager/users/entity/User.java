@@ -5,8 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
 
 @Entity
 @Table(name = "users")
@@ -15,17 +13,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String email;
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
     private String position;
 
-    // projects
-
     public User() {}
+
+    public User(String name, String email, String password, String role) {
+        this.position = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.position = "employee";
+    }
 
     public Long getId() {
         return id;
@@ -51,11 +52,11 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -66,5 +67,4 @@ public class User {
     public void setPosition(String position) {
         this.position = position;
     }
-
 }

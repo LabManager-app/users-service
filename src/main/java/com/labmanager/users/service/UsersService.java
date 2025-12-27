@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.labmanager.users.entity.User;
+import com.labmanager.users.entity.Codes;
 import com.labmanager.users.repository.UserRepository;
 
 @Service
@@ -28,10 +29,21 @@ public class UsersService {
     }
 
     // Add/create user
+    public boolean addUser(String name, String email, String pswd, String code1, String code2){
+        Codes codes = new Codes();
+        if(!codes.checkCode1(code1)) return false;
+        String role = codes.getRole(code2);
+        if(role == null) return false;
+
+        // add user to db
+        User user = new User(name, email, pswd, role);
+        userRepo.save(user);
+        return true;
+    }
     
 
     // Check login by email and password (plain-text comparison)
-    public boolean checkLogin(String email, String password) {
+    public boolean checkLogin(String email, String password){
         if (email == null || password == null) return false;
         User user = userRepo.findByEmail(email);
         if (user == null) return false;
