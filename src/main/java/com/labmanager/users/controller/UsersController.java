@@ -9,11 +9,13 @@ public class UsersController {
 
     //@GetMapping({"", "/"})
 
+    //@GetMapping("/login")  
+    // se prijavi uporabnik (preveri email - pswd)
+
     //@GetMapping("/register")  
     // doda uporabnika (osnovno - name, email, pswd, role, )
 
-    //@GetMapping("/login")  
-    // se prijavi uporabnik (preveri email - pswd)
+    
 
     //@GetMapping("/profile") 
     // vidis profil + projekte
