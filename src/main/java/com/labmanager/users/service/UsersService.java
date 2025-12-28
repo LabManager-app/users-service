@@ -29,14 +29,14 @@ public class UsersService {
     }
 
     // Add/create user
-    public boolean addUser(String name, String email, String pswd, String code1, String code2){
+    public boolean addUser(String name, String email, String pswd, String position, String code1, String code2){
         Codes codes = new Codes();
         if(!codes.checkCode1(code1)) return false;
         String role = codes.getRole(code2);
         if(role == null) return false;
 
         // add user to db
-        User user = new User(name, email, pswd, role);
+        User user = new User(name, email, pswd, role, position);
         userRepo.save(user);
         return true;
     }
@@ -48,6 +48,14 @@ public class UsersService {
         User user = userRepo.findByEmail(email);
         if (user == null) return false;
         return password.equals(user.getPassword());
+    }
+
+    // Delete user by id
+    public boolean deleteUser(Long id) {
+        if (id == null) return false;
+        if (!userRepo.existsById(id)) return false;
+        userRepo.deleteById(id);
+        return true;
     }
 
 }
