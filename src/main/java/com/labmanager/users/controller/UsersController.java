@@ -36,19 +36,21 @@ public class UsersController {
 
     @PostMapping("/login")  
     // se prijavi uporabnik (preveri email - pswd)
-    public ResponseEntity<Boolean> login(@RequestBody Map<String, String> body) {
-        boolean ok = usersService.checkLogin(body.get("email"), body.get("password"));
-        return ResponseEntity.ok(ok);
+    public ResponseEntity<User> login(@RequestBody Map<String, String> body) {
+        User user = usersService.checkLogin(body.get("email"), body.get("password"));
+        if (user != null) return ResponseEntity.ok(user);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping("/register")  
-    public ResponseEntity<Boolean> register(@RequestBody Map<String, String> body) {
-        boolean added = usersService.addUser(body.get("name"), body.get("email"), body.get("password"), body.get("position"), body.get("code1"), body.get("code2"));
-        return ResponseEntity.ok(added);
+    public ResponseEntity<User> register(@RequestBody Map<String, String> body) {
+        User created = usersService.addUser(body.get("name"), body.get("email"), body.get("password"), body.get("position"), body.get("code1"), body.get("code2"));
+        if (created != null) return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        return ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> removeUser(@PathVariable Long id) {
+    public ResponseEntity<Boolean> removeUser(@PathVariable("id") Long id) {
         boolean removed = usersService.deleteUser(id);
         return ResponseEntity.ok(removed);
     }

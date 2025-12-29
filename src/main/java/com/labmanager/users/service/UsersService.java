@@ -28,26 +28,25 @@ public class UsersService {
         return userRepo.findById(id);
     }
 
-    // Add/create user
-    public boolean addUser(String name, String email, String pswd, String position, String code1, String code2){
+    // Add/create user - return created User or null on failure
+    public User addUser(String name, String email, String pswd, String position, String code1, String code2){
         Codes codes = new Codes();
-        if(!codes.checkCode1(code1)) return false;
+        if(!codes.checkCode1(code1)) return null;
         String role = codes.getRole(code2);
-        if(role == null) return false;
+        if(role == null) return null;
 
         // add user to db
         User user = new User(name, email, pswd, role, position);
-        userRepo.save(user);
-        return true;
+        return userRepo.save(user);
     }
     
 
-    // Check login by email and password (plain-text comparison)
-    public boolean checkLogin(String email, String password){
-        if (email == null || password == null) return false;
+    // Check login by email and password (plain-text comparison) - return User if OK, otherwise null
+    public User checkLogin(String email, String password){
+        if (email == null || password == null) return null;
         User user = userRepo.findByEmail(email);
-        if (user == null) return false;
-        return password.equals(user.getPassword());
+        if (user == null) return null;
+        return password.equals(user.getPassword()) ? user : null;
     }
 
     // Delete user by id
