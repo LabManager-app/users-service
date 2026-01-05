@@ -1,0 +1,9 @@
+# config file for urls (public)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: users-service-config
+data:
+  # Database URL now uses the external host/port/database declared in the secret
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://lab-manager-dbs.postgres.database.azure.com:5432/users-db"
+  SPRING_PROFILES_ACTIVE: "default"
