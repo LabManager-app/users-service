@@ -1,6 +1,11 @@
 package com.labmanager.users.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
 
 import java.util.List;
 import java.util.Map;
@@ -17,9 +22,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.labmanager.users.entity.User;
 import com.labmanager.users.service.UsersService;
 
+// Swagger API dokumentacija: http://localhost:8081/swagger-ui/index.html#/
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "Users", description = "API za upravljanje uporabnikov")
 public class UsersController {
 
     private final UsersService usersService;
@@ -28,12 +35,21 @@ public class UsersController {
         this.usersService = usersService;
     }
 
+    @Operation(summary = "Pridobi vse uporabnike", description = "Vrne seznam vseh uporabnikov v sistemu")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Seznam uporabnikov vrnjen")
+    })
     @GetMapping({"", "/"})
     public ResponseEntity<List<User>> getAll() {
         List<User> users = usersService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
+    @Operation(summary = "Prijava uporabnika", description = "Preveri elektronski naslov in geslo ter vrne uporabnika ob uspehu")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Prijava uspešna"),
+        @ApiResponse(responseCode = "401", description = "Neuspešna prijava")
+    })
     @PostMapping("/login")  
     // se prijavi uporabnik (preveri email - pswd)
     public ResponseEntity<User> login(@RequestBody Map<String, String> body) {
@@ -42,6 +58,11 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
+    @Operation(summary = "Registracija uporabnika", description = "Ustvari novega uporabnika z osnovnimi podatki")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Uporabnik ustvarjen"),
+        @ApiResponse(responseCode = "400", description = "Neveljaven zahtevek")
+    })
     @PostMapping("/register")  
     public ResponseEntity<User> register(@RequestBody Map<String, String> body) {
         User created = usersService.addUser(body.get("name"), body.get("email"), body.get("password"), body.get("position"), body.get("code1"), body.get("code2"));
@@ -49,8 +70,12 @@ public class UsersController {
         return ResponseEntity.badRequest().build();
     }
 
+    @Operation(summary = "Odstrani uporabnika", description = "Izbriše uporabnika po ID")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "True če izbrisan, drugače false")
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> removeUser(@PathVariable("id") Long id) {
+    public ResponseEntity<Boolean> removeUser(@Parameter(description = "ID uporabnika") @PathVariable("id") Long id) {
         boolean removed = usersService.deleteUser(id);
         return ResponseEntity.ok(removed);
     }

@@ -1,7 +1,8 @@
-/mnt/c/Users/leakr/3.letnik/prpo/labManager/users-service/src/main/java/com/labmanager/users/ProjectsServiceApplication.java
-/mnt/c/Users/leakr/3.letnik/prpo/labManager/users-service/src/main/java/com/labmanager/users/config/CorsConfig.java
-/mnt/c/Users/leakr/3.letnik/prpo/labManager/users-service/src/main/java/com/labmanager/users/controller/UsersController.java
-/mnt/c/Users/leakr/3.letnik/prpo/labManager/users-service/src/main/java/com/labmanager/users/entity/Codes.java
-/mnt/c/Users/leakr/3.letnik/prpo/labManager/users-service/src/main/java/com/labmanager/users/entity/User.java
-/mnt/c/Users/leakr/3.letnik/prpo/labManager/users-service/src/main/java/com/labmanager/users/repository/UserRepository.java
-/mnt/c/Users/leakr/3.letnik/prpo/labManager/users-service/src/main/java/com/labmanager/users/service/UsersService.java
+C:\Users\leakr\3.letnik\prpo\labManager\users-service\src\main\java\com\labmanager\users\config\CorsConfig.java
+C:\Users\leakr\3.letnik\prpo\labManager\users-service\src\main\java\com\labmanager\users\config\OpenApiConfig.java
+C:\Users\leakr\3.letnik\prpo\labManager\users-service\src\main\java\com\labmanager\users\controller\UsersController.java
+C:\Users\leakr\3.letnik\prpo\labManager\users-service\src\main\java\com\labmanager\users\entity\Codes.java
+C:\Users\leakr\3.letnik\prpo\labManager\users-service\src\main\java\com\labmanager\users\entity\User.java
+C:\Users\leakr\3.letnik\prpo\labManager\users-service\src\main\java\com\labmanager\users\ProjectsServiceApplication.java
+C:\Users\leakr\3.letnik\prpo\labManager\users-service\src\main\java\com\labmanager\users\repository\UserRepository.java
+C:\Users\leakr\3.letnik\prpo\labManager\users-service\src\main\java\com\labmanager\users\service\UsersService.java
