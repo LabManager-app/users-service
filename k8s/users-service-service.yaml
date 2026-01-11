@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: users-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: users-service
   ports:
     - port: 8080
       targetPort: 8080
       protocol: TCP
+      NodePort: 30002
